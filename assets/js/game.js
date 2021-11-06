@@ -102,6 +102,14 @@ var fightOrSkip = function () {
 };
 
 var fight = function (enemy) {
+  //keep track of who goes first
+  var isPlayerTurn = true;
+
+  //randomle change turns
+  if (Math.random() > 0.5) {
+    isPlayerTurn = false;
+  }
+
   //repeat and execute as long as the enemy-robot is alive
   //logical operator && while loop set two conditions that must both be true to keep fighting
   while (playerInfo.health > 0 && enemy.health > 0) {
@@ -117,13 +125,13 @@ var fight = function (enemy) {
     // Log a resulting message to the console so we know that it worked.
     console.log(
       playerInfo.name +
-        " attacked " +
-        enemy.name +
-        ". " +
-        enemy.name +
-        " now has " +
-        enemy.health +
-        " health remaining."
+      " attacked " +
+      enemy.name +
+      ". " +
+      enemy.name +
+      " now has " +
+      enemy.health +
+      " health remaining."
     );
 
     //check enemy's health
@@ -136,14 +144,15 @@ var fight = function (enemy) {
       break;
     } else {
       window.alert(enemy.name + " still has " + enemy.health + " left!");
-    }
-    // remove players's health by subtracting the amount set in the enemy.attack variable
-    var damage = randomNumber(enemy.attack - 3, enemy.attack);
+    } else {
+      // remove players's health by subtracting the amount set in the enemy.attack variable
+      var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
-    playerInfo.health = Math.max(0, playerInfo.health - damage);
+      
+      playerInfo.health = Math.max(0, playerInfo.health - damage);
 
-    console.log(
-      enemy.name +
+      console.log(
+        enemy.name +
         " attacked " +
         playerInfo.name +
         ". " +
@@ -151,17 +160,20 @@ var fight = function (enemy) {
         " now has " +
         playerInfo.health +
         " health remaining."
-    );
-
-    //check player's health
-    if (playerInfo.health <= 0) {
-      window.alert(playerInfo.name + " has died!");
-      break;
-    } else {
-      window.alert(
-        playerInfo.name + " still has " + playerInfo.health + " health left."
       );
+
+      //check player's health
+      if (playerInfo.health <= 0) {
+        window.alert(playerInfo.name + " has died!");
+        break;
+      } else {
+        window.alert(
+          playerInfo.name + " still has " + playerInfo.health + " health left."
+        );
+      }
     }
+    // switch turn order for next round
+    isPlayerTurn = !isPlayerTurn;
   }
 };
 
