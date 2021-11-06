@@ -14,6 +14,13 @@ var enemyNames = ["Roberto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+//fnction to generate a random numeric value
+var randomNumber = function (min, max) {
+  var value = Math.floor(Math.random() * (40 - 60 + 1) + 40);
+
+  return value;
+};
+
 var fight = function (enemyName) {
   //repeat and execute as long as the enemy-robot is alive
 
@@ -37,8 +44,11 @@ var fight = function (enemyName) {
         break;
       }
     }
-    //fight function statements
-    enemyHealth = enemyHealth - playerAttack;
+    //can replace this with Math()
+    //enemyHealth = enemyHealth - playerAttack;
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
     // Log a resulting message to the console so we know that it worked.
     console.log(
       playerName +
@@ -63,8 +73,11 @@ var fight = function (enemyName) {
       window.alert(enemyName + " still has " + enemyHealth + " left!");
     }
 
-    // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-    playerHealth = playerHealth - enemyAttack;
+    //Replace with Math()
+    //playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
     // Log a resulting message to the console so we know that it worked.
     console.log(
       enemyName +
@@ -104,7 +117,8 @@ var startGame = function () {
       var pickedEnemyName = enemyNames[i];
 
       // reset enemyHealth before starting new fight
-      enemyHealth = 50;
+      //enemyHealth = 50;
+      enemyHealth = randomNumber(40, 60);
 
       // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
       fight(pickedEnemyName);
@@ -170,7 +184,8 @@ var shop = function () {
 
         // increase health and decrease money
         playerHealth = playerHealth + 20;
-        playerMoney = playerMoney - 7;
+        //playerMoney = playerMoney - 7;
+        playerMoney = Math.max(0, playerMoney);
       } else {
         window.alert("You don't have enough money!");
       }
