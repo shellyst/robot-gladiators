@@ -125,13 +125,13 @@ var fight = function (enemy) {
     // Log a resulting message to the console so we know that it worked.
     console.log(
       playerInfo.name +
-      " attacked " +
-      enemy.name +
-      ". " +
-      enemy.name +
-      " now has " +
-      enemy.health +
-      " health remaining."
+        " attacked " +
+        enemy.name +
+        ". " +
+        enemy.name +
+        " now has " +
+        enemy.health +
+        " health remaining."
     );
 
     //check enemy's health
@@ -144,15 +144,14 @@ var fight = function (enemy) {
       break;
     } else {
       window.alert(enemy.name + " still has " + enemy.health + " left!");
-    } else {
-      // remove players's health by subtracting the amount set in the enemy.attack variable
-      var damage = randomNumber(enemy.attack - 3, enemy.attack);
+    }
+    // remove players's health by subtracting the amount set in the enemy.attack variable
+    var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
-      
-      playerInfo.health = Math.max(0, playerInfo.health - damage);
+    playerInfo.health = Math.max(0, playerInfo.health - damage);
 
-      console.log(
-        enemy.name +
+    console.log(
+      enemy.name +
         " attacked " +
         playerInfo.name +
         ". " +
@@ -160,17 +159,16 @@ var fight = function (enemy) {
         " now has " +
         playerInfo.health +
         " health remaining."
-      );
+    );
 
-      //check player's health
-      if (playerInfo.health <= 0) {
-        window.alert(playerInfo.name + " has died!");
-        break;
-      } else {
-        window.alert(
-          playerInfo.name + " still has " + playerInfo.health + " health left."
-        );
-      }
+    //check player's health
+    if (playerInfo.health <= 0) {
+      window.alert(playerInfo.name + " has died!");
+      break;
+    } else {
+      window.alert(
+        playerInfo.name + " still has " + playerInfo.health + " health left."
+      );
     }
     // switch turn order for next round
     isPlayerTurn = !isPlayerTurn;
@@ -249,6 +247,30 @@ var startGame = function () {
 
 //function to end the entire game
 var endGame = function () {
+  window.alert("The game has now ended. Let's see how you did!");
+
+  //check LocalStore for high score, if not there use 0
+  var highScore = localStorage.getItem("highscore");
+  if (highscore === null) {
+    highScore = 0;
+  }
+
+  //if player has more money than the high score, player has new highscore
+  if (playerInfo.money > highScore) {
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItam("name", playerInfo.name);
+
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money);
+  } else {
+    alert(
+      playerInfo.name +
+        " did not beat the highscore of " +
+        highScore +
+        ". Maybe next time!"
+    );
+  }
+
+  
   //if player is still alive, player wins!
   if (playerInfo.health > 0) {
     window.alert(
